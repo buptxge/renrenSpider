@@ -1,0 +1,54 @@
+#! /usr/lib/python
+#-*- coding: utf-8 -*-
+
+import sys
+import urllib
+import urllib2
+import cookielib
+
+class renrenSpider:
+    
+    def __init__(self,email,password):
+        self.__email = email
+        self.__password = password
+        self.__domain = 'renren.com'
+        try:
+            cookie = cookielib.CookieJar()
+            cookieProc = urllib2.HTTPCookieProcessor(cookie)
+        except:
+            raise
+        else:
+            opener = urllib2.build_opener(cookieProc)
+            urllib2.install_opener(opener)
+    
+    def getEmail(self):
+        print self.__email
+
+    def getPassword(self):
+        print self.__password
+
+    def login(self):
+        url='http://www.renren.com/PLogin.do'
+        headers = {'User-Agent':'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0',
+            'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Charset':'zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3',
+            'Accept-Encoding':'gzip,deflate',
+            'Connection':'close',
+            'Referer':'None' 
+        }
+        postdata = {
+                    'email':self.__email,
+                    'password':self.__password,
+                    'domain':self.__domain
+                    }
+        req = urllib2.Request(url,urllib.urlencode(postdata),headers)
+        self.file = urllib2.urlopen(req).read()
+        print self.file
+
+if __name__ == '__main__':
+    type = sys.getfilesystemencoding()
+    email = raw_input("输入人人网账号")
+    password = raw_input("输入人人网密码")
+    renrenLogin = renrenSpider(email,password)
+    renrenLogin.login()
+    
