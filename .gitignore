@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 renrenCrawler/*.html
 renrenCrawler/UserData/
+renrenCrawler/*.swp
+renrenCrawler/test.*
+renrenCrawler/*.pyc
